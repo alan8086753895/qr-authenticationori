@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'users.apps.UserConfig',
     'social_django',
     'qr_code',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

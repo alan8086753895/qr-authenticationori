@@ -12,6 +12,20 @@ from qrcode import *
 import time
 from qr_code.qrcode.utils import QRCodeOptions
 import qrcode
+from .forms import NewUserForm
+from django.contrib.auth import login
+def signup(request):
+	if request.method == "POST":
+		form = NewUserForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+			messages.success(request, "Registration successful." )
+			return render(request,"users/index2.html")
+		messages.error(request, "Unsuccessful registration. Invalid information.")
+	form = NewUserForm()
+	return render (request=request, template_name="users/signup.html", context={"register_form":form})
+
 def home(request):
     return render(request, 'users/home.html')
 def qr_gen(request):
